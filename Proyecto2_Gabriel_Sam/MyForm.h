@@ -11,7 +11,7 @@ namespace Proyecto2GabrielSam {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
-
+	
 	/// <summary>
 	/// Resumen de MyForm
 	/// </summary>
@@ -570,7 +570,8 @@ namespace Proyecto2GabrielSam {
 #pragma endregion
 	private: System::Void groupBox1_Enter(System::Object^ sender, System::EventArgs^ e) {
 	}
-
+	
+		   
 
 
 
@@ -594,7 +595,7 @@ namespace Proyecto2GabrielSam {
 			   
 			   
 				   canvas->DrawString("Material: " + ID + "\nUnidades:(Tipo: " + ID + ", Uni " + cant + "\nPeso Max: " 
-					   +pesomax + "\nPeso utilizado: " + (pesoutil * cant), fuente, brushstring, posx + 10, posy + 5);
+					   +pesomax + "\nPeso utilizado: " + (pesoutil * cant), fuente, brushstring, posx + 5, posy + 5);
 
 				   
 				   ID = 0;
@@ -5447,63 +5448,92 @@ namespace Proyecto2GabrielSam {
 			   
 			   DrawNode(panel1->CreateGraphics(), posx, posy, 1, 5, 10, ID, cant,pesomax,pesoutil);
 		   }
-
+		   
 private: System::Void btncrear_Click(System::Object^ sender, System::EventArgs^ e) {
-	int pesomax;
+	
+
 	int ID;
 	int pesoutil;
 	int cant;
-	pesomax = Convert::ToInt32(txtpesomax->Text);
+
 	pesoutil = 0;
 	cant = 0;
 	switch (comboBox1->SelectedIndex)
 	{
-	case 0:
+	case 1:
 		ID = 1;
 		break;
-	case 1:
+	case 2:
 		ID = 2;
 		break;
-	case 2:
+	case 3:
 		ID = 3;
 		break;
 	default:
 		break;
 	}
-	Crearbahias(ID,cant,pesomax,pesoutil);
+
+	richTextBox1->Text = richTextBox1->Text + "\n\nMaterial: " + ID + "\nUnidades : (Tipo: " + ID + ", Uni " + cant +")"+ "\nPeso Max : "
+		+ "\nPeso utilizado: " + pesoutil;
+	Crearbahias(ID,cant,2,pesoutil);
 	
 }
 private: System::Void btnalmacenar_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	int ID, pesouni;
-	int pesomax = Convert::ToInt32(txtpesomax->Text);
 	pesouni = Convert::ToInt32(txtpesouni->Text);
 	int cantuni = Convert::ToInt32(txtcant->Text);
 	DateTime fecha = Convert::ToDateTime(txtfecha->Text);
 	String^nombre = txtnombre->Text;
-
+	int pesomax = Convert::ToInt32(txtpesomax->Text);
 	switch (comboBox3->SelectedIndex)
 	{
-	case 0:
+	case 1:
 		ID = 1;
 		break;
-	case 1:
+	case 2:
 		ID = 2;
 		break;
-	case 2:
+	case 3:
 		ID = 3;
 		break;
 	default:
 		break;
 	}
 	
+	richTextBox1->Text = richTextBox1->Text + "\n\nMaterial: " + ID + "\nUnidades : (Tipo: " + ID + ", Uni " + cantuni + ")"+"\nPeso Max : " 
+		+ pesomax + "\nPeso utilizado: " + (pesouni * cantuni) + "\nFecha: " + fecha + "\nNombre del encargado: " + nombre;
+
 	Crearbahias(ID,cantuni,pesomax,pesouni);
 	
 }
 private: System::Void btnretirar_Click(System::Object^ sender, System::EventArgs^ e) {
+	int pesomax = Convert::ToInt32(txtpesomax->Text);
+	int ID;
+	int cantuni = Convert::ToInt32(txtcantuni2->Text);
+	DateTime fecha = Convert::ToDateTime(txtfecha2->Text);
+	int pesouni = Convert::ToInt32(txtpesouni->Text);
+	String^ nombre = txtnombre2->Text;
 
+	richTextBox1->Text = richTextBox1->Text + "\n\nMaterial: " + ID + "\nUnidades : (Tipo: " + ID + ", Uni " + cantuni + ")" + "\nPeso Max : "
+		+ pesomax + "\nPeso utilizado: " + (pesouni - cantuni) + "\nFecha: " + fecha + "\nNombre del encargado: " + nombre;
 
+	switch (comboBox2->SelectedIndex)
+	{
+	case 1:
+		ID = 1;
+		break;
+	case 2:
+		ID = 2;
+		break;
+	case 3:
+		ID = 3;
+		break;
+	default:
+		break;
+	}
 
+	Crearbahias(ID, cantuni, pesomax, pesouni);
 }
 };
 }
